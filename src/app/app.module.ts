@@ -17,9 +17,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { FlavorCreatorComponent } from './features/flavor/flavor-creator/flavor-creator.component';
 import { FlavorItemComponent } from './features/flavor/flavor-item/flavor-item.component';
+import { FlavorListComponent } from './features/flavor/flavor-list/flavor-list.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, FlavorCreatorComponent, FlavorItemComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, FlavorCreatorComponent, FlavorItemComponent, FlavorListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
