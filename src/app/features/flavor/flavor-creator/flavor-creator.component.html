@@ -1,4 +1,9 @@
-<form (ngSubmit)="submit()" [formGroup]="form" class="form">
+<form
+  *ngIf="loading$ | async as loading"
+  (ngSubmit)="submit(loading.add)"
+  [formGroup]="form"
+  class="form"
+>
   <mat-form-field>
     <input
       formControlName="type"
@@ -10,7 +15,15 @@
       >Nazwa musi zawierać min. 3 znaki.</mat-error
     >
   </mat-form-field>
-  <button mat-raised-button color="accent" [disabled]="form.invalid">
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="!loading.add; else mockButton"
+    [disabled]="form.invalid"
+  >
     Dodaj
   </button>
+  <ng-template #mockButton>
+    <app-mock-button> Dodawanie... </app-mock-button>
+  </ng-template>
 </form>

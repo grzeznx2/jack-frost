@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { UserActions } from 'src/app/store/user';
+import { selectUsersLoading, UserActions } from 'src/app/store/user';
 
 @Component({
   selector: 'app-user-creator',
@@ -11,6 +11,8 @@ import { UserActions } from 'src/app/store/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCreatorComponent {
+  loading$ = this.store.select(selectUsersLoading);
+
   public form = new FormGroup({
     firstName: new FormControl('', [
       Validators.required,

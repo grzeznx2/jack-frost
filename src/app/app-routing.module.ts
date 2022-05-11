@@ -33,6 +33,10 @@ const routes: Routes = [
   },
   {
     path: 'orders',
+    // canActivate: [AuthGuard],
+    // data: {
+    //   requiredAuthStatus: RequiredAuthStatus.AUTHENTICATED,
+    // },
     component: OrderSummaryComponent,
   },
   {

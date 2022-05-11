@@ -1,6 +1,16 @@
 <mat-card>
   <div class="item">
     <mat-card-header>{{ user.firstName }} {{ user.lastName }}</mat-card-header>
-    <button (click)="selectUser()" mat-raised-button color="warn">Usuń</button>
+    <button
+      (click)="selectUser()"
+      mat-raised-button
+      color="warn"
+      *ngIf="!(loading$ | async); else mockButton"
+    >
+      Usuń
+    </button>
+    <ng-template #mockButton>
+      <app-mock-button> Usuwanie... </app-mock-button>
+    </ng-template>
   </div>
 </mat-card>

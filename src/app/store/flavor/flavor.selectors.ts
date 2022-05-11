@@ -10,3 +10,5 @@ export const selectFlavorsList = (state: AppState) => {
   const { idList, byIds } = state.flavors;
   return idList.map((id) => byIds[id]);
 };
+export const selectDeleteFlavorLoading = (id: FlavorId) => (state: AppState) =>
+  state.flavors.loading.delete[id];

@@ -125,6 +125,6 @@ export class UserService {
   }
 
   public deleteUser(id: UserId) {
-    return this.db.doc(`users/${id}`).delete();
+    return from(this.db.doc(`users/${id}`).delete());
   }
 }

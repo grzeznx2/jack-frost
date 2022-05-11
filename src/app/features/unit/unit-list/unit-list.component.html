@@ -1,4 +1,4 @@
-<ng-container *ngIf="loading$ | async; then loader; else dataComp">
+<ng-container *ngIf="(loading$ | async)?.fetch; then loader; else dataComp">
 </ng-container>
 
 <ng-template #dataComp>
@@ -15,6 +15,6 @@
 </ng-template>
 
 <ng-template #loader>
-  <p>Loading...</p>
+  <mat-spinner></mat-spinner>
 </ng-template>
 <app-unit-creator></app-unit-creator>

@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { StorageEffects, storageReducer } from './store/storage';
 import { UnitEffects, unitReducer } from './store/unit';
 import { userReducer } from './store/user';
 import { UserEffects } from './store/user/user.effects';
+import { MockButtonComponent } from './shared/mock-button/mock-button.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { UserEffects } from './store/user/user.effects';
     HeaderComponent,
     MainComponent,
     FooterComponent,
+    MockButtonComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +98,7 @@ import { UserEffects } from './store/user/user.effects';
       StorageEffects,
       OrderEffects,
     ]),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [],
   bootstrap: [AppComponent],

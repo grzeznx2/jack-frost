@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { FlavorActions } from 'src/app/store/flavor';
+import { FlavorActions, selectFlavorsLoading } from 'src/app/store/flavor';
 
 @Component({
   selector: 'app-flavor-creator',
@@ -11,6 +11,9 @@ import { FlavorActions } from 'src/app/store/flavor';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlavorCreatorComponent {
+  public loading$ = this.store.select(selectFlavorsLoading);
+  public submitAllowed = true;
+
   public form = new FormGroup({
     type: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
@@ -21,7 +24,8 @@ export class FlavorCreatorComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  submit() {
+  submit(loading: boolean) {
+    if (loading) return;
     this.store.dispatch(
       FlavorActions.ADD_FLAVOR({ flavor: { name: this.type.value } })
     );

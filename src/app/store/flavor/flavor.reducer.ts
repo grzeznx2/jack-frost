@@ -1,17 +1,26 @@
-import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import { FlavorId, FlavorWithId } from 'src/app/features/flavor/flavor.model';
 import { FlavorActions } from './flavor.actions';
 
 export interface FlavorState {
-  loading: boolean;
+  loading: {
+    add: boolean;
+    delete: {
+      [key: FlavorId]: boolean;
+    };
+    fetch: boolean;
+  };
   error: string | null;
   idList: string[];
   byIds: { [key: FlavorId]: FlavorWithId };
 }
 
 export const initialState: FlavorState = {
-  loading: false,
+  loading: {
+    add: false,
+    delete: {},
+    fetch: false,
+  },
   error: null,
   idList: [],
   byIds: {},
@@ -21,14 +30,18 @@ export const flavorReducer = createReducer(
   initialState,
   on(FlavorActions.ADD_FLAVOR, (state) => ({
     ...state,
-    // TODO: zlikwidować możliwość wkładania duplikatów
-    // TODO: zrobić oddzielne stany ładowania?????
-    // loading: true,
+    loading: {
+      ...state.loading,
+      add: true,
+    },
     error: null,
   })),
   on(FlavorActions.ADD_FLAVOR_SUCCESS, (state, { flavor: { name, id } }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...state.loading,
+      add: false,
+    },
     error: null,
     idList: [...state.idList, id],
     byIds: {
@@ -38,12 +51,18 @@ export const flavorReducer = createReducer(
   })),
   on(FlavorActions.ADD_FLAVOR_FAILURE, (state, { error }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...state.loading,
+      add: false,
+    },
     error,
   })),
   on(FlavorActions.FETCH_FLAVORS, (state) => ({
     ...state,
-    loading: true,
+    loading: {
+      ...state.loading,
+      fetch: true,
+    },
     error: null,
   })),
   on(FlavorActions.FETCH_FLAVORS_SUCCESS, (state, { flavorsWithId }) => {
@@ -55,32 +74,49 @@ export const flavorReducer = createReducer(
       byIds[flavor.id] = flavor;
     }
 
-    return { ...state, loading: false, error: null, byIds, idList };
+    return {
+      ...state,
+      loading: { ...initialState.loading },
+      error: null,
+      byIds,
+      idList,
+    };
   }),
   on(FlavorActions.FETCH_FLAVORS_FAILURE, (state, { error }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...initialState.loading,
+    },
     error,
   })),
-  on(FlavorActions.DELETE_FLAVOR, (state) => ({
+  on(FlavorActions.DELETE_FLAVOR, (state, { id }) => ({
     ...state,
-    loading: true,
+    loading: {
+      ...state.loading,
+      delete: {
+        ...state.loading.delete,
+        [id]: true,
+      },
+    },
     error: null,
   })),
   on(FlavorActions.DELETE_FLAVOR_SUCCESS, (state, { id: idToDelete }) => {
     const { [idToDelete]: flavorToRemove, ...restFlavors } = state.byIds;
-    // console.log(id);
     return {
       ...state,
       error: null,
-      loading: false,
+      loading: {
+        ...initialState.loading,
+      },
       idList: state.idList.filter((id) => id !== idToDelete),
       byIds: { ...restFlavors },
     };
   }),
   on(FlavorActions.DELETE_FLAVOR_FAILURE, (state, { error }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...initialState.loading,
+    },
     error,
   })),
   on(FlavorActions.CLEAR_FLAVOR_STATE, (state) => ({

@@ -3,14 +3,24 @@ import { UnitId, UnitWithId } from 'src/app/features/unit/unit.model';
 import { UnitActions } from './unit.actions';
 
 export interface UnitState {
-  loading: boolean;
+  loading: {
+    add: boolean;
+    delete: {
+      [key: UnitId]: boolean;
+    };
+    fetch: boolean;
+  };
   error: string | null;
   idList: string[];
   byIds: { [key: UnitId]: UnitWithId };
 }
 
 export const initialState: UnitState = {
-  loading: false,
+  loading: {
+    add: false,
+    delete: {},
+    fetch: false,
+  },
   error: null,
   idList: [],
   byIds: {},
@@ -20,11 +30,17 @@ export const unitReducer = createReducer(
   initialState,
   on(UnitActions.ADD_UNIT, (state) => ({
     ...state,
+    loading: {
+      ...state.loading,
+      add: true,
+    },
     error: null,
   })),
   on(UnitActions.ADD_UNIT_SUCCESS, (state, { unit: { name, id, weight } }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...initialState.loading,
+    },
     error: null,
     idList: [...state.idList, id],
     byIds: {
@@ -34,12 +50,17 @@ export const unitReducer = createReducer(
   })),
   on(UnitActions.ADD_UNIT_FAILURE, (state, { error }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...initialState.loading,
+    },
     error,
   })),
   on(UnitActions.FETCH_UNITS, (state) => ({
     ...state,
-    loading: true,
+    loading: {
+      ...state.loading,
+      fetch: true,
+    },
     error: null,
   })),
   on(UnitActions.FETCH_UNITS_SUCCESS, (state, { unitsWithId }) => {
@@ -51,11 +72,21 @@ export const unitReducer = createReducer(
       byIds[flavor.id] = flavor;
     }
 
-    return { ...state, loading: false, error: null, byIds, idList };
+    return {
+      ...state,
+      loading: {
+        ...initialState.loading,
+      },
+      error: null,
+      byIds,
+      idList,
+    };
   }),
   on(UnitActions.FETCH_UNITS_FAILURE, (state, { error }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...initialState.loading,
+    },
     error,
   })),
   on(UnitActions.DELETE_UNIT, (state, { id }) => {
@@ -64,7 +95,13 @@ export const unitReducer = createReducer(
 
     return {
       ...state,
-      loading: true,
+      loading: {
+        ...state.loading,
+        delete: {
+          ...state.loading.delete,
+          [id]: true,
+        },
+      },
       error: null,
     };
   }),
@@ -73,14 +110,18 @@ export const unitReducer = createReducer(
     return {
       ...state,
       error: null,
-      loading: false,
+      loading: {
+        ...initialState.loading,
+      },
       idList: state.idList.filter((id) => id !== idToDelete),
       byIds: { ...restFlavors },
     };
   }),
   on(UnitActions.DELETE_UNIT_FAILURE, (state, { error }) => ({
     ...state,
-    loading: false,
+    loading: {
+      ...initialState.loading,
+    },
     error,
   })),
   on(UnitActions.CLEAR_UNIT_STATE, (state) => ({

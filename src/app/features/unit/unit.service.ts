@@ -32,6 +32,6 @@ export class UnitService {
   }
 
   public deleteUnit(id: UnitId) {
-    return this.db.doc(`units/${id}`).delete();
+    return from(this.db.doc(`units/${id}`).delete());
   }
 }

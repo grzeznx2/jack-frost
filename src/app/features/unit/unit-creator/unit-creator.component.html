@@ -1,4 +1,9 @@
-<form (ngSubmit)="submit()" [formGroup]="form" class="form">
+<form
+  *ngIf="loading$ | async as loading"
+  (ngSubmit)="submit()"
+  [formGroup]="form"
+  class="form"
+>
   <div class="form__group-container form__group-container--inline">
     <div class="form__group">
       <mat-form-field>
@@ -6,7 +11,7 @@
           formControlName="name"
           matInput
           type="text"
-          placeholder="Dodaj nazwę jednostki"
+          placeholder="Dodaj nazwę pojemnika"
         />
         <mat-error *ngIf="name.hasError('minlength')"
           >Nazwa musi zawierać min. 3 znaki.</mat-error
@@ -22,20 +27,32 @@
           type="number"
           step="0.1"
           min="0.1"
+          max="1000"
           value="0.1"
-          placeholder="Podaj wagę"
+          placeholder="Podaj wagę w kilogramach"
         />
 
         <mat-error *ngIf="weight.hasError('required')"
           >Pole wymagane.</mat-error
         >
         <mat-error *ngIf="weight.hasError('min')"
-          >Min. wartość to 0.1</mat-error
+          >Min. wartość to 0.1 kg</mat-error
+        >
+        <mat-error *ngIf="weight.hasError('max')"
+          >Max. wartość to 1000 kg.</mat-error
         >
       </mat-form-field>
     </div>
   </div>
-  <button mat-raised-button color="accent" [disabled]="form.invalid">
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="!loading.add; else mockButton"
+    [disabled]="form.invalid"
+  >
     Dodaj
   </button>
+  <ng-template #mockButton>
+    <app-mock-button> Dodawanie... </app-mock-button>
+  </ng-template>
 </form>

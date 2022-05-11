@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const exports = [
   MatCardModule,
@@ -17,6 +18,7 @@ const exports = [
   MatToolbarModule,
   MatSnackBarModule,
   MatTabsModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
