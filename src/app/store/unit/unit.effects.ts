@@ -145,7 +145,7 @@ export class UnitEffects {
           UnitActions.ADD_UNIT_SUCCESS,
           UnitActions.DELETE_UNIT,
           UnitActions.DELETE_UNIT_FAILURE,
-          UnitActions.ADD_UNIT_SUCCESS,
+          UnitActions.DELETE_UNIT_SUCCESS,
           UnitActions.FETCH_UNITS,
           UnitActions.FETCH_UNITS_FAILURE,
           UnitActions.FETCH_UNITS_SUCCESS

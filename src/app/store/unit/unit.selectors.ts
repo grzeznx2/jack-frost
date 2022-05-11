@@ -10,3 +10,7 @@ export const selectUnitsList = (state: AppState) => {
   const { idList, byIds } = state.units;
   return idList.map((id) => byIds[id]);
 };
+export const selectDeleteUnitLoading = (id: UnitId) => (state: AppState) => {
+  console.log(state.units.loading);
+  return state.units.loading.delete[id];
+};

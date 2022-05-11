@@ -1,25 +1,29 @@
-<ng-container *ngIf="loading$ | async as loading">
-  <form (ngSubmit)="submit(loading.add)" [formGroup]="form" class="form">
-    <mat-form-field>
-      <input
-        formControlName="type"
-        matInput
-        type="text"
-        placeholder="Dodaj nowy smak"
-      />
-      <mat-error *ngIf="type.hasError('minlength')"
-        >Nazwa musi zawierać min. 3 znaki.</mat-error
-      >
-    </mat-form-field>
-    <button
-      mat-raised-button
-      color="accent"
-      *ngIf="!loading.add; else mockButton"
+<form
+  *ngIf="loading$ | async as loading"
+  (ngSubmit)="submit(loading.add)"
+  [formGroup]="form"
+  class="form"
+>
+  <mat-form-field>
+    <input
+      formControlName="type"
+      matInput
+      type="text"
+      placeholder="Dodaj nowy smak"
+    />
+    <mat-error *ngIf="type.hasError('minlength')"
+      >Nazwa musi zawierać min. 3 znaki.</mat-error
     >
-      Dodaj
-    </button>
-    <ng-template #mockButton>
-      <app-mock-button> Dodawanie... </app-mock-button>
-    </ng-template>
-  </form>
-</ng-container>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="accent"
+    *ngIf="!loading.add; else mockButton"
+    [disabled]="form.invalid"
+  >
+    Dodaj
+  </button>
+  <ng-template #mockButton>
+    <app-mock-button> Dodawanie... </app-mock-button>
+  </ng-template>
+</form>
