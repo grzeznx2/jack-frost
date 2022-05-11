@@ -1,3 +1,4 @@
+import { AuthState } from './auth';
 import { FlavorState } from './flavor';
 import { OrderState } from './order';
 import { UnitState } from './unit';
@@ -8,4 +9,5 @@ export interface AppState {
   flavors: FlavorState;
   orders: OrderState;
   units: UnitState;
+  auth: AuthState;
 }
