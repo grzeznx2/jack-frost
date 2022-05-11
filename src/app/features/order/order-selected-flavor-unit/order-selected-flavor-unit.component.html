@@ -1,32 +1,37 @@
-<form [formGroup]="form" class="example-form">
-  <p>
-    {{ flavorUnit.amount }}
-    x
-  </p>
-  <p>
-    {{ (unit$ | async)?.name }}
-    {{ (unit$ | async)?.weight }}
-    kg
-  </p>
-  {{ (flavor$ | async)?.name }}
+<form [formGroup]="form" class="order-flavor-unit">
+  <div class="order-flavor-unit__section order-flavor-unit__section--top">
+    <div>
+      <strong> {{ (flavor$ | async)?.name }}</strong>
+    </div>
+    <div>
+      {{ flavorUnit.amount }}
+      x
+    </div>
+    <div>
+      {{ (unit$ | async)?.name }}
+      {{ (unit$ | async)?.weight }}
+      kg
+    </div>
 
-  <mat-form-field>
-    <input
-      formControlName="multiplier"
-      matInput
-      type="number"
-      min="1"
-      step="1"
-    />
-  </mat-form-field>
-
-  <button
-    mat-raised-button
-    color="accent"
-    [disabled]="form.invalid"
-    type="button"
-    (click)="deleteFlavorUnit()"
-  >
-    Usuń
-  </button>
+    <mat-form-field>
+      <input
+        formControlName="multiplier"
+        matInput
+        type="number"
+        min="1"
+        step="1"
+      />
+    </mat-form-field>
+  </div>
+  <div class="order-flavor-unit__section order-flavor-unit__section--bottom">
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="form.invalid"
+      type="button"
+      (click)="deleteFlavorUnit()"
+    >
+      Usuń
+    </button>
+  </div>
 </form>

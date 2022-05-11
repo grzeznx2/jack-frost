@@ -86,7 +86,6 @@ export const selectFlavorUnitList = (state: AppState) => {
   const result = flavorUnitIdList.map(
     (flavorUnitId) => byFlavorUnitId[flavorUnitId]
   );
-  console.log(result);
   return result;
 };
 
