@@ -1,5 +1,5 @@
-<ng-container *ngIf="!(loading$ | async)">
-  <form (ngSubmit)="submit()" [formGroup]="form" class="form">
+<ng-container *ngIf="loading$ | async as loading">
+  <form (ngSubmit)="submit(loading.add)" [formGroup]="form" class="form">
     <mat-form-field>
       <input
         formControlName="type"
@@ -14,10 +14,12 @@
     <button
       mat-raised-button
       color="accent"
-      [disabled]="form.invalid || (loading$ | async)"
+      *ngIf="!loading.add; else mockButton"
     >
-      {{ (loading$ | async) ? "Dodaję..." : "Dodaj" }}
+      Dodaj
     </button>
+    <ng-template #mockButton>
+      <app-mock-button> Dodawanie... </app-mock-button>
+    </ng-template>
   </form>
-  <ng-template #spinner> Ładowanie... </ng-template>
 </ng-container>

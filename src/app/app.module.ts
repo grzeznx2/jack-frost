@@ -42,6 +42,7 @@ import { StorageEffects, storageReducer } from './store/storage';
 import { UnitEffects, unitReducer } from './store/unit';
 import { userReducer } from './store/user';
 import { UserEffects } from './store/user/user.effects';
+import { MockButtonComponent } from './shared/mock-button/mock-button.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { UserEffects } from './store/user/user.effects';
     HeaderComponent,
     MainComponent,
     FooterComponent,
+    MockButtonComponent,
   ],
   imports: [
     BrowserModule,
