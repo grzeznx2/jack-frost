@@ -20,6 +20,7 @@ import { FlavorItemComponent } from './features/flavor/flavor-item/flavor-item.c
 import { FlavorListComponent } from './features/flavor/flavor-list/flavor-list.component';
 import { FlavorsUnitsComponent } from './features/flavors-units/flavors-units.component';
 import { UnitCreatorComponent } from './features/unit/unit-creator/unit-creator.component';
+import { UnitItemComponent } from './features/unit/unit-item/unit-item.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { UnitCreatorComponent } from './features/unit/unit-creator/unit-creator.
     FlavorListComponent,
     FlavorsUnitsComponent,
     UnitCreatorComponent,
+    UnitItemComponent,
   ],
   imports: [
     BrowserModule,

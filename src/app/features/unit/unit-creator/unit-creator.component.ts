@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
@@ -10,7 +10,7 @@ import { UnitActions } from 'src/app/store/unit';
   styleUrls: ['./unit-creator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UnitCreatorComponent implements OnInit {
+export class UnitCreatorComponent {
   public form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     weight: new FormControl(0, [Validators.required, Validators.min(0.1)]),
@@ -25,8 +25,6 @@ export class UnitCreatorComponent implements OnInit {
   }
 
   constructor(private store: Store<AppState>) {}
-
-  ngOnInit(): void {}
 
   submit() {
     this.store.dispatch(
