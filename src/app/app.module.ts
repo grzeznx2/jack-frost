@@ -22,6 +22,8 @@ import { FlavorsUnitsComponent } from './features/flavors-units/flavors-units.co
 import { UnitCreatorComponent } from './features/unit/unit-creator/unit-creator.component';
 import { UnitItemComponent } from './features/unit/unit-item/unit-item.component';
 import { UnitListComponent } from './features/unit/unit-list/unit-list.component';
+import { SplitFlavorsPipe } from './features/order/split-flavors.pipe';
+import { IsOrderAllowedPipe } from './features/order/is-order-allowed.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { UnitListComponent } from './features/unit/unit-list/unit-list.component
     UnitCreatorComponent,
     UnitItemComponent,
     UnitListComponent,
+    SplitFlavorsPipe,
+    IsOrderAllowedPipe,
   ],
   imports: [
     BrowserModule,
