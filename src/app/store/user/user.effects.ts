@@ -9,6 +9,7 @@ import {
   pluck,
   repeat,
   switchMap,
+  take,
   takeUntil,
   tap,
   withLatestFrom,
@@ -56,7 +57,8 @@ export class UserEffects {
       ofType(UserActions.FETCH_USERS),
       switchMap(() =>
         this.userService.getUsers().pipe(
-          takeUntil(this.subService.unsubscribe$),
+          take(2),
+          // takeUntil(this.subService.unsubscribe$),
           map((users) => UserActions.FETCH_USERS_SUCCESS({ users })),
           catchError((error) =>
             of(UserActions.FETCH_USERS_FAILURE({ error: error.message }))
@@ -130,7 +132,7 @@ export class UserEffects {
           UserActions.ADD_USER_SUCCESS,
           UserActions.DELETE_USER,
           UserActions.DELETE_USER_FAILURE,
-          UserActions.ADD_USER_SUCCESS,
+          UserActions.DELETE_USER_SUCCESS,
           UserActions.FETCH_USERS,
           UserActions.FETCH_USERS_FAILURE,
           UserActions.FETCH_USERS_SUCCESS,
