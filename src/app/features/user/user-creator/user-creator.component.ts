@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
@@ -8,6 +8,7 @@ import { UserActions } from 'src/app/store/user';
   selector: 'app-user-creator',
   templateUrl: './user-creator.component.html',
   styleUrls: ['./user-creator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCreatorComponent {
   public form = new FormGroup({

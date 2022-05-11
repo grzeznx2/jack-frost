@@ -32,6 +32,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { MainComponent } from './layout/main/main.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { UserCreatorComponent } from './features/user/user-creator/user-creator.component';
+import { UserItemComponent } from './features/user/user-item/user-item.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { UserCreatorComponent } from './features/user/user-creator/user-creator.
     MainComponent,
     FooterComponent,
     UserCreatorComponent,
+    UserItemComponent,
   ],
   imports: [
     BrowserModule,
