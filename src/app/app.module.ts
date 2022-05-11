@@ -12,13 +12,17 @@ import { orderReducer } from './store/order';
 import { storageReducer } from './store/storage';
 import { unitReducer } from './store/unit';
 import { userReducer } from './store/user';
+import { LoginComponent } from './features/auth/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
+    ReactiveFormsModule,
     StoreModule.forRoot<AppState>(
       {
         flavors: flavorReducer,
