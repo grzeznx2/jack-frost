@@ -1,26 +1,41 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { AuthActions, selectAuthLoading } from 'src/app/store/auth';
-import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnDestroy {
+export class RegisterComponent {
   public loading$ = this.store.select(selectAuthLoading);
 
   public form = new FormGroup({
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
     ]),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
+
+  get firstName() {
+    return this.form.get('firstName')!;
+  }
+
+  get lastName() {
+    return this.form.get('lastName')!;
+  }
 
   get password() {
     return this.form.get('password')!;
@@ -30,19 +45,14 @@ export class LoginComponent implements OnDestroy {
     return this.form.get('email')!;
   }
 
-  constructor(
-    private store: Store<AppState>,
-    private authService: AuthService
-  ) {}
-
-  ngOnDestroy(): void {
-    this.authService.unsubscribeComponent$.next();
-  }
+  constructor(private store: Store<AppState>) {}
 
   submit() {
     this.store.dispatch(
-      AuthActions.LOGIN_USER({
+      AuthActions.REGISTER_USER({
         user: {
+          firstName: this.firstName.value,
+          lastName: this.lastName.value,
           password: this.password.value,
           email: this.email.value,
         },
