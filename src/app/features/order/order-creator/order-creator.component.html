@@ -1,0 +1,48 @@
+<ng-container *ngIf="hasOrderedToday$ | async; then message; else orderCreator">
+</ng-container>
+<ng-template #message>
+  <h3>Dziękujemy za Twoje zamówienie. Zapraszamy ponownie jutro!</h3>
+</ng-template>
+
+<ng-template #orderCreator>
+  <ng-container *ngIf="units$ | async as units">
+    <ng-container *ngIf="flavors$ | async | splitFlavors | async as flavors">
+      <ng-container *ngIf="lastOrder$ | async as lastOrder">
+        <h2>Poprzednie zamówienie</h2>
+        <button mat-raised-button color="warn" (click)="repeatLastOrder()">
+          Powtórz ostatnie zamówienie
+        </button>
+      </ng-container>
+      <h2>Ulubione smaki</h2>
+      <app-order-flavor-unit
+        *ngFor="let flavor of flavors.likedFlavors"
+        [flavor]="flavor"
+        [units]="units"
+        [isLiked]="true"
+      ></app-order-flavor-unit>
+      <h2>Pozostałe smaki</h2>
+      <app-order-flavor-unit
+        *ngFor="let flavor of flavors.restFlavors"
+        [isLiked]="false"
+        [flavor]="flavor"
+        [units]="units"
+      ></app-order-flavor-unit>
+      <h2>Podsumowanie</h2>
+      <ng-container *ngIf="flavorUnits$ | async as flavorUnits">
+        <app-order-selected-flavor-unit
+          *ngFor="let flavorUnit of flavorUnits"
+          [flavorUnit]="flavorUnit"
+        ></app-order-selected-flavor-unit>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <button
+    mat-raised-button
+    color="warn"
+    [disabled]="(user$ | async)?.lastOrder?.createdAt | isOrderAllowed"
+    (click)="createOrder()"
+  >
+    {{ (user$ | async)?.lastOrder?.createdAt | isOrderAllowed }}
+    Złóż zamówienie
+  </button>
+</ng-template>

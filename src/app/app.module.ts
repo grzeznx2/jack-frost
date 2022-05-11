@@ -22,6 +22,12 @@ import { FlavorsUnitsComponent } from './features/flavors-units/flavors-units.co
 import { UnitCreatorComponent } from './features/unit/unit-creator/unit-creator.component';
 import { UnitItemComponent } from './features/unit/unit-item/unit-item.component';
 import { UnitListComponent } from './features/unit/unit-list/unit-list.component';
+import { SplitFlavorsPipe } from './features/order/split-flavors.pipe';
+import { IsOrderAllowedPipe } from './features/order/is-order-allowed.pipe';
+import { OrderCreatorComponent } from './features/order/order-creator/order-creator.component';
+import { OrderFlavorUnitComponent } from './features/order/order-flavor-unit/order-flavor-unit.component';
+import { OrderSelectedFlavorUnitComponent } from './features/order/order-selected-flavor-unit/order-selected-flavor-unit.component';
+import { OrderSummaryComponent } from './features/order/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,12 @@ import { UnitListComponent } from './features/unit/unit-list/unit-list.component
     UnitCreatorComponent,
     UnitItemComponent,
     UnitListComponent,
+    SplitFlavorsPipe,
+    IsOrderAllowedPipe,
+    OrderCreatorComponent,
+    OrderFlavorUnitComponent,
+    OrderSelectedFlavorUnitComponent,
+    OrderSummaryComponent,
   ],
   imports: [
     BrowserModule,

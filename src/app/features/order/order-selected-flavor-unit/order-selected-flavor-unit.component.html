@@ -1,0 +1,32 @@
+<form [formGroup]="form" class="example-form">
+  <p>
+    {{ flavorUnit.amount }}
+    x
+  </p>
+  <p>
+    {{ (unit$ | async)?.name }}
+    {{ (unit$ | async)?.weight }}
+    kg
+  </p>
+  {{ (flavor$ | async)?.name }}
+
+  <mat-form-field>
+    <input
+      formControlName="multiplier"
+      matInput
+      type="number"
+      min="1"
+      step="1"
+    />
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="form.invalid"
+    type="button"
+    (click)="deleteFlavorUnit()"
+  >
+    Usuń
+  </button>
+</form>
