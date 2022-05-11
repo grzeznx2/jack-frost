@@ -1,0 +1,66 @@
+<ng-container *ngIf="loading$ | async; then loader; else result">
+</ng-container>
+
+<ng-template #result>
+  <ng-container *ngIf="error$ | async as error; else dataComp">
+    {{ error | json }}
+  </ng-container>
+</ng-template>
+
+<ng-template #dataComp>
+  <h2>Podsumowanie zamówień</h2>
+  <div *ngIf="ordersSummary$ | async as summary" class="order-summary">
+    <mat-tab-group>
+      <mat-tab label="Wg klientów">
+        <div class="order-summary__section">
+          <mat-card
+            *ngFor="let user of summary.userSummary"
+            class="order-summary__item"
+          >
+            <h4 class="order-summary__user-name">
+              {{ user.userName }}
+            </h4>
+            <mat-card-content>
+              <div
+                *ngFor="let flavorUnit of user.flavorUnits"
+                class="order-summary__flavor-unit"
+              >
+                <span> {{ flavorUnit.flavorName }}, </span>
+                <span class="order-summary__bold">
+                  {{ flavorUnit.amount }}
+                  x
+                </span>
+                <span>
+                  {{ flavorUnit.unitName }}
+                </span>
+                <span class="order-summary__bold">
+                  {{ flavorUnit.weight }} kg
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-tab>
+      <mat-tab label="Sumarycznie">
+        <div class="order-summary__section">
+          <mat-card
+            *ngFor="let flavorName of summary.flavorSummary.flavorNames"
+            class="order-summary__item"
+          >
+            <span
+              >{{ summary.flavorSummary.byFlavorName[flavorName].flavorName }},
+            </span>
+            <span class="order-summary__bold">
+              {{ summary.flavorSummary.byFlavorName[flavorName].totalWeight }}
+            </span>
+            kg
+          </mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <p>Loading...</p>
+</ng-template>

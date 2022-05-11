@@ -27,6 +27,7 @@ import { IsOrderAllowedPipe } from './features/order/is-order-allowed.pipe';
 import { OrderCreatorComponent } from './features/order/order-creator/order-creator.component';
 import { OrderFlavorUnitComponent } from './features/order/order-flavor-unit/order-flavor-unit.component';
 import { OrderSelectedFlavorUnitComponent } from './features/order/order-selected-flavor-unit/order-selected-flavor-unit.component';
+import { OrderSummaryComponent } from './features/order/order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { OrderSelectedFlavorUnitComponent } from './features/order/order-selecte
     OrderCreatorComponent,
     OrderFlavorUnitComponent,
     OrderSelectedFlavorUnitComponent,
+    OrderSummaryComponent,
   ],
   imports: [
     BrowserModule,
