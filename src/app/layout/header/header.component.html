@@ -1,0 +1,37 @@
+<mat-toolbar color="primary" class="header">
+  <div class="container header__container">
+    <div class="header__logo">
+      <a routerLink="/" class="header__link">JACK FROST</a>
+    </div>
+    <ng-container *ngIf="user$ | async as user; else logoutNav">
+      <div class="header__nav-container">
+        <div class="header__welcome">
+          Witaj, {{ user.firstName }} {{ user.lastName }}!
+        </div>
+        <nav class="header__nav">
+          <ng-container *ngIf="user.role === 'ADMIN'">
+            <a class="header__link" routerLink="users">Klienci</a>
+            <a class="header__link" routerLink="orders">Zamówienia</a>
+            <a class="header__link" routerLink="flavors-units"
+              >Smaki i jednostki</a
+            >
+          </ng-container>
+          <ng-container *ngIf="user.role === 'USER'">
+            <a class="header__link" routerLink="order-creator"
+              >Nowe Zamówienie</a
+            >
+          </ng-container>
+          <button mat-raised-button color="basic" (click)="logout()">
+            {{ (loading$ | async) === true ? "Papa..." : "Wyloguj" }}
+          </button>
+        </nav>
+      </div>
+    </ng-container>
+  </div>
+</mat-toolbar>
+<ng-template #logoutNav>
+  <nav class="header__nav">
+    <a class="header__link" routerLink="login">Logowanie</a>
+    <a class="header__link" routerLink="register">Rejestracja</a>
+  </nav>
+</ng-template>

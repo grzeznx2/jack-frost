@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import {
@@ -13,6 +13,7 @@ import { UnitId } from '../unit.model';
   selector: 'app-unit-list',
   templateUrl: './unit-list.component.html',
   styleUrls: ['./unit-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UnitListComponent {
   units$ = this.store.select(selectUnitsList);
