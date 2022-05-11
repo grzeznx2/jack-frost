@@ -1,0 +1,41 @@
+<form (ngSubmit)="submit()" [formGroup]="form" class="form">
+  <div class="form__group-container form__group-container--inline">
+    <div class="form__group">
+      <mat-form-field>
+        <input
+          formControlName="name"
+          matInput
+          type="text"
+          placeholder="Dodaj nazwę jednostki"
+        />
+        <mat-error *ngIf="name.hasError('minlength')"
+          >Nazwa musi zawierać min. 3 znaki.</mat-error
+        >
+        <mat-error *ngIf="name.hasError('required')">Pole wymagane.</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form__group">
+      <mat-form-field>
+        <input
+          formControlName="weight"
+          matInput
+          type="number"
+          step="0.1"
+          min="0.1"
+          value="0.1"
+          placeholder="Podaj wagę"
+        />
+
+        <mat-error *ngIf="weight.hasError('required')"
+          >Pole wymagane.</mat-error
+        >
+        <mat-error *ngIf="weight.hasError('min')"
+          >Min. wartość to 0.1</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-raised-button color="accent" [disabled]="form.invalid">
+    Dodaj
+  </button>
+</form>

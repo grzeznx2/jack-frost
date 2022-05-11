@@ -1,0 +1,20 @@
+<ng-container *ngIf="loading$ | async; then loader; else dataComp">
+</ng-container>
+
+<ng-template #dataComp>
+  <div class="list">
+    <app-unit-item
+      *ngFor="let unit of units$ | async"
+      [name]="unit.name"
+      [id]="unit.id"
+      [weight]="unit.weight"
+      (unitSelected)="deleteUnit($event)"
+      class="list__item list__item"
+    ></app-unit-item>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <p>Loading...</p>
+</ng-template>
+<app-unit-creator></app-unit-creator>
