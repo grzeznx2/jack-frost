@@ -31,6 +31,7 @@ import { OrderSummaryComponent } from './features/order/order-summary/order-summ
 import { HeaderComponent } from './layout/header/header.component';
 import { MainComponent } from './layout/main/main.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { UserCreatorComponent } from './features/user/user-creator/user-creator.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { FooterComponent } from './layout/footer/footer.component';
     HeaderComponent,
     MainComponent,
     FooterComponent,
+    UserCreatorComponent,
   ],
   imports: [
     BrowserModule,
