@@ -30,6 +30,7 @@ import { OrderSelectedFlavorUnitComponent } from './features/order/order-selecte
 import { OrderSummaryComponent } from './features/order/order-summary/order-summary.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { MainComponent } from './layout/main/main.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MainComponent } from './layout/main/main.component';
     OrderSummaryComponent,
     HeaderComponent,
     MainComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
