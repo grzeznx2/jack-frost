@@ -19,7 +19,7 @@ import { selectAllOrders } from '../order';
 import { StorageActions } from '../storage';
 import { selectUsers } from '../user';
 import { FlavorActions } from './flavor.actions';
-import { selectFlavors } from './flavor.selectors';
+import { selectFlavors, selectFlavorsList } from './flavor.selectors';
 
 @Injectable()
 export class FlavorEffects {
@@ -33,6 +33,16 @@ export class FlavorEffects {
   addFlavor$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FlavorActions.ADD_FLAVOR),
+      withLatestFrom(this.store.select(selectFlavorsList)),
+      map(([newFlavor, flavorsList]) => {
+        if (
+          flavorsList.some((flavor) => flavor.name === newFlavor.flavor.name)
+        ) {
+          throw new Error('Podany smak już istnieje!');
+        }
+
+        return newFlavor;
+      }),
       pluck('flavor'),
       switchMap((flavor) =>
         of(this.flavorService.addFlavor(flavor)).pipe(
@@ -45,7 +55,11 @@ export class FlavorEffects {
             of(FlavorActions.ADD_FLAVOR_FAILURE({ error: error.message }))
           )
         )
-      )
+      ),
+      catchError((error) =>
+        of(FlavorActions.ADD_FLAVOR_FAILURE({ error: error.message }))
+      ),
+      repeat()
     )
   );
 
@@ -120,7 +134,10 @@ export class FlavorEffects {
   deleteFlavorFailure$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(FlavorActions.DELETE_FLAVOR_FAILURE),
+        ofType(
+          FlavorActions.DELETE_FLAVOR_FAILURE,
+          FlavorActions.ADD_FLAVOR_FAILURE
+        ),
         tap((res) => {
           this.snackBar.showSnackbar(res.error, undefined, 3000);
         })

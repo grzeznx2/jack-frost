@@ -15,10 +15,11 @@ import {
 import { UnitService } from 'src/app/features/unit/unit.service';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { AppState } from '../app.state';
+import { FlavorActions } from '../flavor';
 import { selectAllOrders } from '../order';
 import { StorageActions } from '../storage';
 import { UnitActions } from './unit.actions';
-import { selectUnits } from './unit.selectors';
+import { selectUnits, selectUnitsList } from './unit.selectors';
 
 @Injectable()
 export class UnitEffects {
@@ -32,6 +33,14 @@ export class UnitEffects {
   addUnit$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UnitActions.ADD_UNIT),
+      withLatestFrom(this.store.select(selectUnitsList)),
+      map(([newUnit, unitsList]) => {
+        if (unitsList.some((unit) => unit.name === newUnit.unit.name)) {
+          throw new Error('Pojemnik o podanej nazwie już istnieje!');
+        }
+
+        return newUnit;
+      }),
       pluck('unit'),
       switchMap((unit) =>
         this.unitService.addUnit(unit).pipe(
@@ -44,7 +53,11 @@ export class UnitEffects {
             of(UnitActions.ADD_UNIT_FAILURE({ error: error.message }))
           )
         )
-      )
+      ),
+      catchError((error) =>
+        of(UnitActions.ADD_UNIT_FAILURE({ error: error.message }))
+      ),
+      repeat()
     )
   );
 
@@ -101,7 +114,7 @@ export class UnitEffects {
   deleteUnitFailure$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UnitActions.DELETE_UNIT_FAILURE),
+        ofType(UnitActions.DELETE_UNIT_FAILURE, UnitActions.ADD_UNIT_FAILURE),
         tap((res) => {
           this.snackBar.showSnackbar(res.error, undefined, 3000);
         })
