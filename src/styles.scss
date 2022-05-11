@@ -2,3 +2,6 @@
 @import "./styles/layout";
 @import "./styles/form";
 @import "./styles/list";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

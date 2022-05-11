@@ -1,70 +1,78 @@
 import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { StoreModule } from '@ngrx/store';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './material/material.module';
-import { AppState } from './store/app.state';
-import { authReducer } from './store/auth';
-import { flavorReducer } from './store/flavor';
-import { orderReducer } from './store/order';
-import { storageReducer } from './store/storage';
-import { unitReducer } from './store/unit';
-import { userReducer } from './store/user';
 import { LoginComponent } from './features/auth/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { FlavorCreatorComponent } from './features/flavor/flavor-creator/flavor-creator.component';
 import { FlavorItemComponent } from './features/flavor/flavor-item/flavor-item.component';
 import { FlavorListComponent } from './features/flavor/flavor-list/flavor-list.component';
 import { FlavorsUnitsComponent } from './features/flavors-units/flavors-units.component';
-import { UnitCreatorComponent } from './features/unit/unit-creator/unit-creator.component';
-import { UnitItemComponent } from './features/unit/unit-item/unit-item.component';
-import { UnitListComponent } from './features/unit/unit-list/unit-list.component';
-import { SplitFlavorsPipe } from './features/order/split-flavors.pipe';
 import { IsOrderAllowedPipe } from './features/order/is-order-allowed.pipe';
 import { OrderCreatorComponent } from './features/order/order-creator/order-creator.component';
 import { OrderFlavorUnitComponent } from './features/order/order-flavor-unit/order-flavor-unit.component';
 import { OrderSelectedFlavorUnitComponent } from './features/order/order-selected-flavor-unit/order-selected-flavor-unit.component';
 import { OrderSummaryComponent } from './features/order/order-summary/order-summary.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { MainComponent } from './layout/main/main.component';
-import { FooterComponent } from './layout/footer/footer.component';
+import { SplitFlavorsPipe } from './features/order/split-flavors.pipe';
+import { UnitCreatorComponent } from './features/unit/unit-creator/unit-creator.component';
+import { UnitItemComponent } from './features/unit/unit-item/unit-item.component';
+import { UnitListComponent } from './features/unit/unit-list/unit-list.component';
 import { UserCreatorComponent } from './features/user/user-creator/user-creator.component';
 import { UserItemComponent } from './features/user/user-item/user-item.component';
 import { UserListComponent } from './features/user/user-list/user-list.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { MainComponent } from './layout/main/main.component';
+import { MaterialModule } from './material/material.module';
+import { AppState } from './store/app.state';
+import { AuthEffects, authReducer } from './store/auth';
+import { FlavorEffects, flavorReducer } from './store/flavor';
+import { OrderEffects, orderReducer } from './store/order';
+import { StorageEffects, storageReducer } from './store/storage';
+import { UnitEffects, unitReducer } from './store/unit';
+import { userReducer } from './store/user';
+import { UserEffects } from './store/user/user.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    FlavorCreatorComponent,
     FlavorItemComponent,
     FlavorListComponent,
-    FlavorsUnitsComponent,
-    UnitCreatorComponent,
+    FlavorCreatorComponent,
     UnitItemComponent,
     UnitListComponent,
-    SplitFlavorsPipe,
-    IsOrderAllowedPipe,
+    UnitCreatorComponent,
+    FlavorsUnitsComponent,
+    UserCreatorComponent,
+    UserListComponent,
+    UserItemComponent,
+    RegisterComponent,
+    LoginComponent,
     OrderCreatorComponent,
     OrderFlavorUnitComponent,
-    OrderSelectedFlavorUnitComponent,
     OrderSummaryComponent,
+    SplitFlavorsPipe,
+    OrderSelectedFlavorUnitComponent,
+    IsOrderAllowedPipe,
     HeaderComponent,
     MainComponent,
     FooterComponent,
-    UserCreatorComponent,
-    UserItemComponent,
-    UserListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     StoreModule.forRoot<AppState>(
       {
         flavors: flavorReducer,
@@ -76,6 +84,17 @@ import { UserListComponent } from './features/user/user-list/user-list.component
       },
       {}
     ),
+    MaterialModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    EffectsModule.forRoot([
+      FlavorEffects,
+      UnitEffects,
+      UserEffects,
+      AuthEffects,
+      StorageEffects,
+      OrderEffects,
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent],
