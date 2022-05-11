@@ -1,0 +1,29 @@
+<form (ngSubmit)="submit()" [formGroup]="form" class="form">
+  <h2>Logowanie</h2>
+  <mat-form-field>
+    <input formControlName="email" matInput type="email" placeholder="Mail" />
+    <mat-error *ngIf="email.hasError('required')"
+      >Pole jest wymagane.</mat-error
+    >
+    <mat-error *ngIf="email.hasError('email')"
+      >Proszę podać prawidłowy format maila.</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      formControlName="password"
+      matInput
+      type="password"
+      placeholder="Hasło"
+    />
+    <mat-error *ngIf="password.hasError('required')"
+      >Pole jest wymagane.</mat-error
+    >
+    <mat-error *ngIf="password.hasError('minlength')"
+      >Hasło musi zawierać min. 6 znaków</mat-error
+    >
+  </mat-form-field>
+  <button mat-raised-button color="accent" [disabled]="form.invalid">
+    {{ (loading$ | async) === true ? "Ładowanie..." : "Zaloguj" }}
+  </button>
+</form>
