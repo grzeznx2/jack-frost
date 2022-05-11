@@ -24,6 +24,7 @@ import { UnitItemComponent } from './features/unit/unit-item/unit-item.component
 import { UnitListComponent } from './features/unit/unit-list/unit-list.component';
 import { SplitFlavorsPipe } from './features/order/split-flavors.pipe';
 import { IsOrderAllowedPipe } from './features/order/is-order-allowed.pipe';
+import { OrderCreatorComponent } from './features/order/order-creator/order-creator.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { IsOrderAllowedPipe } from './features/order/is-order-allowed.pipe';
     UnitListComponent,
     SplitFlavorsPipe,
     IsOrderAllowedPipe,
+    OrderCreatorComponent,
   ],
   imports: [
     BrowserModule,
