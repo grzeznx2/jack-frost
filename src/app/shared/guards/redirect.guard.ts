@@ -20,9 +20,9 @@ export class RedirectGuard implements CanActivate {
     return this.store.select(selectUserRole).pipe(
       map((role) => {
         if (role === 'USER') {
-          return this.router.createUrlTree(['order-creator']);
+          return this.router.createUrlTree(['/order-creator']);
         } else if (role === 'ADMIN') {
-          return this.router.createUrlTree(['users']);
+          return this.router.createUrlTree(['/users']);
         } else {
           return this.router.createUrlTree(['login']);
         }

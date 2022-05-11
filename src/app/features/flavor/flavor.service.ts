@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import { from, map, Observable } from 'rxjs';
+import { from, map, Observable, of } from 'rxjs';
 import { Flavor, FlavorId, FlavorWithId } from './flavor.model';
 
 @Injectable({
@@ -34,6 +34,6 @@ export class FlavorService {
   }
 
   public deleteFlavor(id: FlavorId) {
-    return this.db.doc(`flavors/${id}`).delete();
+    return from(this.db.doc(`flavors/${id}`).delete());
   }
 }

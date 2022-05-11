@@ -1,16 +1,23 @@
-<form (ngSubmit)="submit()" [formGroup]="form" class="form">
-  <mat-form-field>
-    <input
-      formControlName="type"
-      matInput
-      type="text"
-      placeholder="Dodaj nowy smak"
-    />
-    <mat-error *ngIf="type.hasError('minlength')"
-      >Nazwa musi zawierać min. 3 znaki.</mat-error
+<ng-container *ngIf="!(loading$ | async)">
+  <form (ngSubmit)="submit()" [formGroup]="form" class="form">
+    <mat-form-field>
+      <input
+        formControlName="type"
+        matInput
+        type="text"
+        placeholder="Dodaj nowy smak"
+      />
+      <mat-error *ngIf="type.hasError('minlength')"
+        >Nazwa musi zawierać min. 3 znaki.</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="form.invalid || (loading$ | async)"
     >
-  </mat-form-field>
-  <button mat-raised-button color="accent" [disabled]="form.invalid">
-    Dodaj
-  </button>
-</form>
+      {{ (loading$ | async) ? "Dodaję..." : "Dodaj" }}
+    </button>
+  </form>
+  <ng-template #spinner> Ładowanie... </ng-template>
+</ng-container>

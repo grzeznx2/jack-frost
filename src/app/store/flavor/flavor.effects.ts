@@ -45,10 +45,10 @@ export class FlavorEffects {
       }),
       pluck('flavor'),
       switchMap((flavor) =>
-        of(this.flavorService.addFlavor(flavor)).pipe(
-          map(() => {
+        this.flavorService.addFlavor(flavor).pipe(
+          map((res) => {
             return FlavorActions.ADD_FLAVOR_SUCCESS({
-              flavor: { ...flavor, id: Math.random() + 's' },
+              flavor: { ...flavor, id: res },
             });
           }),
           catchError((error) =>
@@ -116,7 +116,7 @@ export class FlavorEffects {
         return action;
       }),
       switchMap(({ id }) =>
-        of(this.flavorService.deleteFlavor(id)).pipe(
+        this.flavorService.deleteFlavor(id).pipe(
           map(() => FlavorActions.DELETE_FLAVOR_SUCCESS({ id })),
           catchError((error) =>
             of(FlavorActions.DELETE_FLAVOR_FAILURE({ error: error.message }))

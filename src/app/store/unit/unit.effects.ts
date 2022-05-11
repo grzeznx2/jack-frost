@@ -97,7 +97,7 @@ export class UnitEffects {
         return action;
       }),
       switchMap(({ id }) =>
-        of(this.unitService.deleteUnit(id)).pipe(
+        this.unitService.deleteUnit(id).pipe(
           map(() => UnitActions.DELETE_UNIT_SUCCESS({ id })),
           catchError((error) =>
             of(UnitActions.DELETE_UNIT_FAILURE({ error: error.message }))

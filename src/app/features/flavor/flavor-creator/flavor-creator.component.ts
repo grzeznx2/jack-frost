@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
-import { FlavorActions } from 'src/app/store/flavor';
+import { FlavorActions, selectFlavorsLoading } from 'src/app/store/flavor';
 
 @Component({
   selector: 'app-flavor-creator',
@@ -10,7 +16,11 @@ import { FlavorActions } from 'src/app/store/flavor';
   styleUrls: ['./flavor-creator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlavorCreatorComponent {
+export class FlavorCreatorComponent implements OnInit, OnDestroy {
+  public loading$ = this.store.select(selectFlavorsLoading);
+  public submitAllowed = true;
+  private subscriptions: Subscription[] = [];
+
   public form = new FormGroup({
     type: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
@@ -21,7 +31,16 @@ export class FlavorCreatorComponent {
 
   constructor(private store: Store<AppState>) {}
 
+  ngOnInit() {
+    this.subscriptions.push(
+      this.loading$.subscribe((res) => this.submitAllowed === res)
+    );
+  }
+
+  ngOnDestroy(): void {}
+
   submit() {
+    if (!this.submitAllowed) return;
     this.store.dispatch(
       FlavorActions.ADD_FLAVOR({ flavor: { name: this.type.value } })
     );

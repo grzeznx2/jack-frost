@@ -20,7 +20,12 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.store.select(selectUserRole).pipe(
       map((role) => {
-        if (!role) return false;
+        console.log(role);
+        // if (!role) return this.router.createUrlTree(['/login']);
+        if (!role) {
+          this.router.navigateByUrl('/login');
+          return false;
+        }
         if ((route.data['requiredRole'] as Role) === 'ADMIN') {
           return this.requireAdmin(role);
         } else {
@@ -31,12 +36,17 @@ export class RoleGuard implements CanActivate {
   }
 
   private requireAdmin(role: Role) {
+    console.log('HELLO 1!');
     if (role === 'ADMIN') return true;
-    return this.router.createUrlTree(['/']);
+    console.log('HELLO 2!');
+    this.router.navigateByUrl('/order-creator');
+    return false;
   }
 
   private requireUser(role: Role) {
     if (role === 'USER') return true;
-    return this.router.createUrlTree(['/']);
+    this.router.navigateByUrl('/order-creator');
+    return false;
+    // return this.router.createUrlTree(['/users']);
   }
 }

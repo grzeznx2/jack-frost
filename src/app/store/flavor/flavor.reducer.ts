@@ -21,9 +21,7 @@ export const flavorReducer = createReducer(
   initialState,
   on(FlavorActions.ADD_FLAVOR, (state) => ({
     ...state,
-    // TODO: zlikwidować możliwość wkładania duplikatów
-    // TODO: zrobić oddzielne stany ładowania?????
-    // loading: true,
+    loading: true,
     error: null,
   })),
   on(FlavorActions.ADD_FLAVOR_SUCCESS, (state, { flavor: { name, id } }) => ({
@@ -69,7 +67,6 @@ export const flavorReducer = createReducer(
   })),
   on(FlavorActions.DELETE_FLAVOR_SUCCESS, (state, { id: idToDelete }) => {
     const { [idToDelete]: flavorToRemove, ...restFlavors } = state.byIds;
-    // console.log(id);
     return {
       ...state,
       error: null,
