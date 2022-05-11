@@ -31,6 +31,9 @@ import { OrderSummaryComponent } from './features/order/order-summary/order-summ
 import { HeaderComponent } from './layout/header/header.component';
 import { MainComponent } from './layout/main/main.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { UserCreatorComponent } from './features/user/user-creator/user-creator.component';
+import { UserItemComponent } from './features/user/user-item/user-item.component';
+import { UserListComponent } from './features/user/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,9 @@ import { FooterComponent } from './layout/footer/footer.component';
     HeaderComponent,
     MainComponent,
     FooterComponent,
+    UserCreatorComponent,
+    UserItemComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+.user-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    padding: 1rem;
+    width: 50%;
+  }
+}

@@ -1,0 +1,53 @@
+<form (ngSubmit)="submit()" [formGroup]="form" class="form">
+  <div class="form__group">
+    <mat-form-field>
+      <input
+        formControlName="firstName"
+        matInput
+        type="text"
+        placeholder="Imię klienta"
+      />
+      <mat-error *ngIf="firstName.hasError('required')"
+        >Pole jest wymagane.</mat-error
+      >
+      <mat-error *ngIf="firstName.hasError('minlength')"
+        >Imię musi zawierać min. 3 znaki.</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div class="form__group">
+    <mat-form-field>
+      <input
+        formControlName="lastName"
+        matInput
+        type="text"
+        placeholder="Nazwisko klienta"
+      />
+      <mat-error *ngIf="lastName.hasError('required')"
+        >Pole jest wymagane.</mat-error
+      >
+      <mat-error *ngIf="lastName.hasError('minlength')"
+        >Nazwisko musi zawierać min. 3 znaki.</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div class="form__group">
+    <mat-form-field>
+      <input
+        formControlName="password"
+        matInput
+        type="password"
+        placeholder="Hasło klienta"
+      />
+      <mat-error *ngIf="password.hasError('required')"
+        >Pole jest wymagane.</mat-error
+      >
+      <mat-error *ngIf="password.hasError('minlength')"
+        >Hasło musi zawierać min. 6 znaków</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="accent" [disabled]="form.invalid">
+    Dodaj
+  </button>
+</form>

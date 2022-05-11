@@ -1,0 +1,19 @@
+<ng-container *ngIf="loading$ | async; then loader; else dataComp">
+</ng-container>
+
+<ng-template #dataComp>
+  <div class="list">
+    <app-user-item
+      class="list__item"
+      *ngFor="let user of users$ | async"
+      [user]="user"
+      (userSelected)="deleteUser($event)"
+    ></app-user-item>
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <p>Loading...</p>
+</ng-template>
+
+<app-user-creator></app-user-creator>
