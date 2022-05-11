@@ -28,6 +28,7 @@ import { OrderCreatorComponent } from './features/order/order-creator/order-crea
 import { OrderFlavorUnitComponent } from './features/order/order-flavor-unit/order-flavor-unit.component';
 import { OrderSelectedFlavorUnitComponent } from './features/order/order-selected-flavor-unit/order-selected-flavor-unit.component';
 import { OrderSummaryComponent } from './features/order/order-summary/order-summary.component';
+import { HeaderComponent } from './layout/header/header.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { OrderSummaryComponent } from './features/order/order-summary/order-summ
     OrderFlavorUnitComponent,
     OrderSelectedFlavorUnitComponent,
     OrderSummaryComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
