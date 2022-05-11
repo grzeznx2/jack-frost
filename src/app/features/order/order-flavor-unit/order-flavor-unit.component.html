@@ -1,0 +1,37 @@
+<form (ngSubmit)="submit()" [formGroup]="form" class="example-form">
+  <div>{{ flavor.name }}</div>
+  <mat-form-field>
+    <input
+      formControlName="multiplier"
+      matInput
+      type="number"
+      min="1"
+      step="1"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Wybierz pojemnik" formControlName="unit">
+      <mat-option *ngFor="let unit of units" [value]="unit.id"
+        >{{ unit.name }} {{ unit.weight }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="accent"
+    [disabled]="form.invalid"
+    type="submit"
+  >
+    Dodaj
+  </button>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="handleClick(flavor.id)"
+    type="button"
+  >
+    {{ isLiked ? "Nie lubię" : "Lubię to!" }}
+  </button>
+</form>
