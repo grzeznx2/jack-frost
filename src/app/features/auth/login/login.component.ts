@@ -18,8 +18,13 @@ export class LoginComponent implements OnDestroy {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
+      Validators.maxLength(50),
     ]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.maxLength(50),
+    ]),
   });
 
   get password() {

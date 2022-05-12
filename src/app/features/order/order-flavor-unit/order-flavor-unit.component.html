@@ -5,6 +5,7 @@
     </div>
     <mat-form-field class="order-flavor-unit__amount-input">
       <input
+        (keydown.space)="$event.preventDefault()"
         formControlName="multiplier"
         matInput
         type="number"

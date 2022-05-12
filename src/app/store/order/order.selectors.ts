@@ -1,3 +1,4 @@
+import { ComponentFactoryResolver } from '@angular/core';
 import { AppState } from '../app.state';
 
 export interface OrdersSummary {
@@ -40,7 +41,12 @@ export const selectOrdersSummary = (state: AppState) => {
     },
     userSummary: [],
   };
-  ordersIdList.forEach((orderId) => {
+
+  const filteredByDate = ordersIdList.filter((orderId) => {
+    return checkIsToday(ordersByIds[orderId].createdAt);
+  });
+
+  filteredByDate.forEach((orderId) => {
     const order = ordersByIds[orderId];
     const flavorUnits = order.flavorUnits.map((flavorUnit) => {
       const flavorName = flavorsByIds[flavorUnit.flavorId].name;
@@ -124,8 +130,8 @@ const checkIsToday = (
 const isToday = (date: Date) => {
   const today = new Date();
   return (
-    date.getDate() == today.getDate() &&
-    date.getMonth() == today.getMonth() &&
-    date.getFullYear() == today.getFullYear()
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
   );
 };

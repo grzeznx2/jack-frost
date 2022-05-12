@@ -1,13 +1,18 @@
 <form (ngSubmit)="submit()" [formGroup]="form" class="form">
   <h2>Logowanie</h2>
   <mat-form-field>
-    <input formControlName="email" matInput type="email" placeholder="Mail" />
+    <input
+      (keydown.space)="$event.preventDefault()"
+      formControlName="email"
+      matInput
+      type="email"
+      placeholder="Mail"
+    />
     <mat-error *ngIf="email.hasError('required')"
       >Pole jest wymagane.</mat-error
     >
-    <mat-error *ngIf="email.hasError('email')"
-      >Proszę podać prawidłowy format maila.</mat-error
-    >
+    <mat-error *ngIf="email.hasError('email')">Mail nieprawidłowy.</mat-error>
+    <mat-error *ngIf="email.hasError('maxlength')">Max. 50 znaków.</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input
@@ -21,6 +26,9 @@
     >
     <mat-error *ngIf="password.hasError('minlength')"
       >Hasło musi zawierać min. 6 znaków</mat-error
+    >
+    <mat-error *ngIf="password.hasError('maxlength')"
+      >Max. 50 znaków.</mat-error
     >
   </mat-form-field>
   <button

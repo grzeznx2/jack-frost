@@ -6,6 +6,7 @@
 >
   <mat-form-field>
     <input
+      (keydown.space)="$event.preventDefault()"
       formControlName="type"
       matInput
       type="text"
@@ -14,6 +15,9 @@
     <mat-error *ngIf="type.hasError('minlength')"
       >Nazwa musi zawierać min. 3 znaki.</mat-error
     >
+
+    <mat-error *ngIf="type.hasError('maxlength')">Max. 50 znaków.</mat-error>
+    <mat-error *ngIf="type.hasError('required')">Pole wymagane.</mat-error>
   </mat-form-field>
   <button
     mat-raised-button

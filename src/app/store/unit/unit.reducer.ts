@@ -90,9 +90,6 @@ export const unitReducer = createReducer(
     error,
   })),
   on(UnitActions.DELETE_UNIT, (state, { id }) => {
-    console.log('FROM UNIT REDUCER ');
-    console.log(id);
-
     return {
       ...state,
       loading: {

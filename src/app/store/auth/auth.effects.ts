@@ -121,7 +121,11 @@ export class AuthEffects {
           }
           this.store.dispatch(FlavorActions.FETCH_FLAVORS());
           this.store.dispatch(UnitActions.FETCH_UNITS());
-          this.router.navigateByUrl('/');
+          if (user.role === 'ADMIN') {
+            this.router.navigateByUrl('/users');
+          } else {
+            this.router.navigateByUrl('/order-creator');
+          }
         })
       ),
     { dispatch: false }

@@ -15,7 +15,11 @@ export class FlavorCreatorComponent {
   public submitAllowed = true;
 
   public form = new FormGroup({
-    type: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    type: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
+    ]),
   });
 
   get type() {
@@ -29,6 +33,6 @@ export class FlavorCreatorComponent {
     this.store.dispatch(
       FlavorActions.ADD_FLAVOR({ flavor: { name: this.type.value } })
     );
-    console.log(this.type.value);
+    this.type.value;
   }
 }

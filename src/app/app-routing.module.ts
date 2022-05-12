@@ -14,6 +14,8 @@ const routes: Routes = [
   {
     path: 'order-creator',
     component: OrderCreatorComponent,
+    canActivate: [RoleGuard],
+    data: { requiredRole: 'USER' },
   },
   {
     path: 'register',
@@ -33,10 +35,8 @@ const routes: Routes = [
   },
   {
     path: 'orders',
-    // canActivate: [AuthGuard],
-    // data: {
-    //   requiredAuthStatus: RequiredAuthStatus.AUTHENTICATED,
-    // },
+    canActivate: [RoleGuard],
+    data: { requiredRole: 'ADMIN' },
     component: OrderSummaryComponent,
   },
   {
@@ -47,12 +47,18 @@ const routes: Routes = [
   },
   {
     path: 'flavors-units',
+    canActivate: [RoleGuard],
+    data: { requiredRole: 'USER' },
     component: FlavorsUnitsComponent,
   },
   {
     path: '',
-    canActivate: [RedirectGuard],
-    component: LoginComponent,
+    pathMatch: 'full',
+    redirectTo: '/users',
+  },
+  {
+    path: '**',
+    redirectTo: '/users',
   },
 ];
 
