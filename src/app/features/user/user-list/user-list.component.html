@@ -2,18 +2,23 @@
 </ng-container>
 
 <ng-template #dataComp>
-  <div class="list">
-    <app-user-item
-      class="list__item"
-      *ngFor="let user of users$ | async"
-      [user]="user"
-      (userSelected)="deleteUser($event)"
-    ></app-user-item>
-  </div>
+  <section class="section">
+    <h2>Nasi klienci</h2>
+    <div class="list">
+      <app-user-item
+        class="list__item"
+        *ngFor="let user of users$ | async"
+        [user]="user"
+        (userSelected)="deleteUser($event)"
+      ></app-user-item>
+    </div>
+  </section>
 </ng-template>
 
 <ng-template #loader>
   <mat-spinner></mat-spinner>
 </ng-template>
-
-<app-user-creator></app-user-creator>
+<section class="section">
+  <h2>Dodaj nowego klienta</h2>
+  <app-user-creator></app-user-creator>
+</section>
