@@ -21,7 +21,7 @@ import { AppState } from '../app.state';
 import { selectAllOrders } from '../order';
 import { StorageActions } from '../storage';
 import { UserActions } from './user.actions';
-import { selectUsers } from './user.selectors';
+import { selectUsers, selectUsersList } from './user.selectors';
 
 @Injectable()
 export class UserEffects {
@@ -37,6 +37,14 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.ADD_USER),
       pluck('user'),
+      withLatestFrom(this.store.select(selectUsersList)),
+      map(([user, users]) => {
+        users.forEach((u) => {
+          if (u.firstName === user.firstName && u.lastName === user.lastName)
+            throw new Error('Wybrany klient istnieje już w bazie!');
+        });
+        return user;
+      }),
       switchMap((user) =>
         this.userService.addUser(user).pipe(
           map((newUserData) => {
@@ -48,7 +56,11 @@ export class UserEffects {
             of(UserActions.ADD_USER_FAILURE({ error: error.message }))
           )
         )
-      )
+      ),
+      catchError((error) =>
+        of(UserActions.DELETE_USER_FAILURE({ error: error.message }))
+      ),
+      repeat()
     )
   );
 
