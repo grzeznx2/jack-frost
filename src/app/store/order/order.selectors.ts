@@ -40,7 +40,12 @@ export const selectOrdersSummary = (state: AppState) => {
     },
     userSummary: [],
   };
-  ordersIdList.forEach((orderId) => {
+
+  const filteredByDate = ordersIdList.filter((orderId) => {
+    return checkIsToday(ordersByIds[orderId].createdAt);
+  });
+
+  filteredByDate.forEach((orderId) => {
     const order = ordersByIds[orderId];
     const flavorUnits = order.flavorUnits.map((flavorUnit) => {
       const flavorName = flavorsByIds[flavorUnit.flavorId].name;
