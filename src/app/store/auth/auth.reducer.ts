@@ -33,12 +33,23 @@ export const authReducer = createReducer(
     loggedIn: true,
     user,
   })),
-  on(AuthActions.REGISTER_USER_FAILURE, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-    success: false,
-  })),
+  on(AuthActions.REGISTER_USER_FAILURE, (state, { error }) => {
+    /*
+    TODO:
+    Znaleźć przyczynę, dlaczego Firebase wyrzuca ten błąd, nawet jeżeli email nie jest w użyciu
+    */
+    if (
+      error ===
+      'Firebase: The email address is already in use by another account. (auth/email-already-in-use).'
+    ) {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+
+    return { ...state, loading: false, error, success: false };
+  }),
   on(AuthActions.LOGIN_USER, (state) => ({
     ...state,
     loading: true,
@@ -97,6 +108,13 @@ export const authReducer = createReducer(
     ...state,
     loading: false,
     error,
+  })),
+  on(AuthActions.SET_USER_ORDER, (state, { lastOrder }) => ({
+    ...state,
+    user: {
+      ...state.user!,
+      lastOrder,
+    },
   })),
   on(AuthActions.SET_AUTH_STATE, (state, { authState }) => ({
     ...state,

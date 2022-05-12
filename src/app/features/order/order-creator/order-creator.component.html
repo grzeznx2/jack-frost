@@ -1,48 +1,137 @@
-<ng-container *ngIf="hasOrderedToday$ | async; then message; else orderCreator">
-</ng-container>
 <ng-template #message>
   <h3>Dziękujemy za Twoje zamówienie. Zapraszamy ponownie jutro!</h3>
 </ng-template>
-
-<ng-template #orderCreator>
-  <ng-container *ngIf="units$ | async as units">
-    <ng-container *ngIf="flavors$ | async | splitFlavors | async as flavors">
-      <ng-container *ngIf="lastOrder$ | async as lastOrder">
-        <h2>Poprzednie zamówienie</h2>
-        <button mat-raised-button color="warn" (click)="repeatLastOrder()">
-          Powtórz ostatnie zamówienie
-        </button>
-      </ng-container>
-      <h2>Ulubione smaki</h2>
-      <app-order-flavor-unit
-        *ngFor="let flavor of flavors.likedFlavors"
-        [flavor]="flavor"
-        [units]="units"
-        [isLiked]="true"
-      ></app-order-flavor-unit>
-      <h2>Pozostałe smaki</h2>
-      <app-order-flavor-unit
-        *ngFor="let flavor of flavors.restFlavors"
-        [isLiked]="false"
-        [flavor]="flavor"
-        [units]="units"
-      ></app-order-flavor-unit>
-      <h2>Podsumowanie</h2>
-      <ng-container *ngIf="flavorUnits$ | async as flavorUnits">
-        <app-order-selected-flavor-unit
-          *ngFor="let flavorUnit of flavorUnits"
-          [flavorUnit]="flavorUnit"
-        ></app-order-selected-flavor-unit>
+<section class="section">
+  <h2 class="section__title">Poprzednie zamówienie</h2>
+  <div *ngIf="!(lastOrder$ | async)">Nie masz żadnych zamówień w historii.</div>
+  <ng-container *ngIf="lastOrder$ | async as lastOrder">
+    <ng-container *ngIf="flavors$ | async as flavors">
+      <ng-container *ngIf="units$ | async as units">
+        <div class="card-container">
+          <div
+            class="card-container__item"
+            *ngFor="let flavorUnit of lastOrder.flavorUnits"
+          >
+            <mat-card class="card-container__details">
+              <div class="card-container__detail">
+                <strong>Smak: </strong>
+                <span> {{ flavors.byIds[flavorUnit.flavorId]?.name }}</span>
+              </div>
+              <div class="card-container__detail">
+                <strong>Ilość: </strong>
+                <span>{{ flavorUnit.amount }} x </span>
+                <span>{{ units.byIds[flavorUnit.unitId]?.name }}</span>
+                <span> {{ units.byIds[flavorUnit.unitId]?.weight }} kg </span>
+              </div>
+              <div class="card-container__detail">
+                <strong>Razem </strong>
+                <span *ngIf="units.byIds[flavorUnit.unitId]">
+                  {{
+                    units.byIds[flavorUnit.unitId].weight * flavorUnit.amount
+                  }}
+                  kg
+                </span>
+              </div>
+            </mat-card>
+          </div>
+        </div>
       </ng-container>
     </ng-container>
   </ng-container>
-  <button
-    mat-raised-button
-    color="warn"
-    [disabled]="(user$ | async)?.lastOrder?.createdAt | isOrderAllowed"
-    (click)="createOrder()"
-  >
-    {{ (user$ | async)?.lastOrder?.createdAt | isOrderAllowed }}
-    Złóż zamówienie
-  </button>
+  <div class="card-container">
+    <div class="card-container__item">
+      <button
+        *ngIf="!(hasOrderedToday$ | async) && (lastOrder$ | async)"
+        mat-raised-button
+        color="warn"
+        (click)="repeatLastOrder()"
+      >
+        Powtórz ostatnie zamówienie
+      </button>
+    </div>
+  </div>
+</section>
+<ng-container *ngIf="hasOrderedToday$ | async; then message; else orderCreator">
+</ng-container>
+
+<ng-template #orderCreator>
+  <ng-container *ngIf="unitsList$ | async as unitsList">
+    <ng-container
+      *ngIf="flavorsList$ | async | splitFlavors | async as flavorsList"
+    >
+      <section class="section">
+        <h2 class="section__title">Ulubione smaki</h2>
+        <div class="card-container">
+          <div *ngIf="flavorsList.likedFlavors.length === 0">
+            Nie masz jeszcze żadnych ulubionych smaków.
+          </div>
+          <div
+            class="card-container__item"
+            *ngFor="let flavor of flavorsList.likedFlavors"
+          >
+            <mat-card class="card-container__details">
+              <app-order-flavor-unit
+                [flavor]="flavor"
+                [units]="unitsList"
+                [isLiked]="true"
+              ></app-order-flavor-unit>
+            </mat-card>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="section__title">Pozostałe smaki</h2>
+        <div class="card-container">
+          <div
+            *ngFor="let flavor of flavorsList.restFlavors"
+            class="card-container__item"
+          >
+            <mat-card class="card-container__details">
+              <app-order-flavor-unit
+                [isLiked]="false"
+                [flavor]="flavor"
+                [units]="unitsList"
+              ></app-order-flavor-unit>
+            </mat-card>
+          </div>
+        </div>
+      </section>
+      <section class="section" *ngIf="flavorUnits$ | async as flavorUnits">
+        <h2 class="section__title">Podsumowanie</h2>
+        <div class="card-container">
+          <div *ngIf="flavorUnits.length === 0">
+            Wybierz przynajmniej jedną pozycję przed złożeniem zamówienia.
+          </div>
+          <div
+            class="card-container__item"
+            *ngFor="let flavorUnit of flavorUnits"
+          >
+            <mat-card class="card-container__details">
+              <app-order-selected-flavor-unit
+                [flavorUnit]="flavorUnit"
+              ></app-order-selected-flavor-unit>
+            </mat-card>
+          </div>
+        </div>
+        <div class="card-container">
+          <div class="card-container__item">
+            <button
+              mat-raised-button
+              color="warn"
+              *ngIf="
+                !(hasOrderedToday$ | async) && flavorUnits.length > 0;
+                else mockButton
+              "
+              (click)="createOrder()"
+            >
+              Złóż zamówienie
+            </button>
+            <ng-template #mockButton>
+              <app-mock-button> Złóż zamówienie </app-mock-button>
+            </ng-template>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+  </ng-container>
 </ng-template>

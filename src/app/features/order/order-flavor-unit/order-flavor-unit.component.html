@@ -1,37 +1,43 @@
-<form (ngSubmit)="submit()" [formGroup]="form" class="example-form">
-  <div>{{ flavor.name }}</div>
-  <mat-form-field>
-    <input
-      formControlName="multiplier"
-      matInput
-      type="number"
-      min="1"
-      step="1"
-    />
-  </mat-form-field>
+<form (ngSubmit)="submit()" [formGroup]="form" class="order-flavor-unit">
+  <div class="order-flavor-unit__section order-flavor-unit__section--top">
+    <div>
+      <strong>{{ flavor.name }}</strong>
+    </div>
+    <mat-form-field class="order-flavor-unit__amount-input">
+      <input
+        formControlName="multiplier"
+        matInput
+        type="number"
+        min="1"
+        step="1"
+      />
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Wybierz pojemnik" formControlName="unit">
-      <mat-option *ngFor="let unit of units" [value]="unit.id"
-        >{{ unit.name }} {{ unit.weight }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-
-  <button
-    mat-raised-button
-    color="accent"
-    [disabled]="form.invalid"
-    type="submit"
-  >
-    Dodaj
-  </button>
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="handleClick(flavor.id)"
-    type="button"
-  >
-    {{ isLiked ? "Nie lubię" : "Lubię to!" }}
-  </button>
+    <mat-form-field>
+      <mat-select placeholder="Wybierz pojemnik" formControlName="unit">
+        <mat-option *ngFor="let unit of units" [value]="unit.id"
+          >{{ unit.name }} {{ unit.weight }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="order-flavor-unit__section order-flavor-unit__section--bottom">
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="form.invalid"
+      type="submit"
+      class="order-flavor-unit__first-button"
+    >
+      Dodaj
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="handleClick(flavor.id)"
+      type="button"
+    >
+      {{ isLiked ? "Nie lubię" : "Lubię to!" }}
+    </button>
+  </div>
 </form>

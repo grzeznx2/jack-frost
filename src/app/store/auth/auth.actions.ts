@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { FlavorId } from 'src/app/features/flavor/flavor.model';
+import { OrderId } from 'src/app/features/order/order.model';
 import {
   RegisterUser,
   UserAfterRegister,
@@ -74,5 +75,14 @@ export const AuthActions = {
   SET_AUTH_STATE: createAction(
     `${REDUCER} Set Auth State`,
     props<{ authState: AuthState }>()
+  ),
+  SET_USER_ORDER: createAction(
+    `${REDUCER} Set User Order`,
+    props<{
+      lastOrder: {
+        id: OrderId;
+        createdAt: { seconds: number; nanoseconds: number };
+      };
+    }>()
   ),
 };

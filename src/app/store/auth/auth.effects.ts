@@ -176,7 +176,7 @@ export class AuthEffects {
       ofType(AuthActions.LIKE_FLAVOR),
       withLatestFrom(this.store.select(selectUser)),
       mergeMap(([{ flavorId }, user]) =>
-        of(
+        from(
           this.userService.updateUser(user!.id, {
             likedFlavors: [...user!.likedFlavors, flavorId],
           })
@@ -195,7 +195,7 @@ export class AuthEffects {
       ofType(AuthActions.DISLIKE_FLAVOR),
       withLatestFrom(this.store.select(selectUser)),
       mergeMap(([{ flavorId }, user]) =>
-        of(
+        from(
           this.userService.updateUser(user!.id, {
             likedFlavors: user?.likedFlavors.filter(
               (likedFlavorId) => likedFlavorId !== flavorId
@@ -215,11 +215,23 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(
+          AuthActions.LOGIN_USER,
+          AuthActions.LOGIN_USER_FAILURE,
           AuthActions.LOGIN_USER_SUCCESS,
+          AuthActions.LOGOUT_USER,
           AuthActions.LOGOUT_USER_SUCCESS,
+          AuthActions.LOGOUT_USER_FAILURE,
+          AuthActions.DISLIKE_FLAVOR,
           AuthActions.DISLIKE_FLAVOR_SUCCESS,
+          AuthActions.DISLIKE_FLAVOR_FAILURE,
+          AuthActions.LIKE_FLAVOR,
           AuthActions.LIKE_FLAVOR_SUCCESS,
-          AuthActions.REGISTER_USER_SUCCESS
+          AuthActions.LIKE_FLAVOR_FAILURE,
+          AuthActions.REGISTER_USER,
+          AuthActions.REGISTER_USER_SUCCESS,
+          AuthActions.REGISTER_USER_FAILURE,
+          AuthActions.ADD_USER_ID,
+          AuthActions.SET_USER_ORDER
         ),
         tap(() => {
           this.store.dispatch(AuthActions.PUSH_AUTH_TO_LOCAL_STORAGE());
