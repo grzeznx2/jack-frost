@@ -17,7 +17,7 @@ export interface FlavorUnit extends FlavorUnitPayload {
 
 export interface OrderPayload {
   userId: UserId;
-  createdAt: Date;
+  createdAt: Date | { seconds: number; nanoseconds: number };
   flavorUnits: FlavorUnitPayload[];
 }
 

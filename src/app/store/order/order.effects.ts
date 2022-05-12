@@ -17,7 +17,7 @@ import { OrderService } from 'src/app/features/order/order.service';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { selectFlavorUnitList } from '.';
 import { AppState } from '../app.state';
-import { selectUserId } from '../auth';
+import { AuthActions, selectUserId } from '../auth';
 import { StorageActions } from '../storage';
 import { OrderActions } from './order.actions';
 import { selectLastUserOrder, selectOrders } from './order.selectors';
@@ -160,7 +160,21 @@ export class OrderEffects {
     () =>
       this.actions$.pipe(
         ofType(OrderActions.ADD_ORDER_SUCCESS),
-        tap(() => {
+        tap(({ order }) => {
+          this.store.dispatch(OrderActions.SET_LAST_USER_ORDER({ order }));
+          if (!(order.createdAt instanceof Date)) {
+            this.store.dispatch(
+              AuthActions.SET_USER_ORDER({
+                lastOrder: {
+                  id: order.id,
+                  createdAt: {
+                    nanoseconds: order.createdAt.nanoseconds!,
+                    seconds: order.createdAt.seconds,
+                  },
+                },
+              })
+            );
+          }
           this.snackBar.showSnackbar('Dodano nowe zamówienie!');
         })
       ),
