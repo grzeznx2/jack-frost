@@ -3,6 +3,7 @@
   <div class="form__group">
     <mat-form-field>
       <input
+        (keydown.space)="$event.preventDefault()"
         formControlName="firstName"
         matInput
         type="text"
@@ -14,11 +15,15 @@
       <mat-error *ngIf="firstName.hasError('minlength')"
         >Imię musi zawierać min. 3 znaki.</mat-error
       >
+      <mat-error *ngIf="firstName.hasError('whitespace')"
+        >Proszę nie używać spacji.</mat-error
+      >
     </mat-form-field>
   </div>
   <div class="form__group">
     <mat-form-field>
       <input
+        (keydown.space)="$event.preventDefault()"
         formControlName="lastName"
         matInput
         type="text"
@@ -34,7 +39,13 @@
   </div>
   <div class="form__group">
     <mat-form-field>
-      <input formControlName="email" matInput type="email" placeholder="Mail" />
+      <input
+        (keydown.space)="$event.preventDefault()"
+        formControlName="email"
+        matInput
+        type="email"
+        placeholder="Mail"
+      />
       <mat-error *ngIf="email.hasError('required')"
         >Pole jest wymagane.</mat-error
       >

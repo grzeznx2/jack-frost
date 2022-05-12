@@ -8,6 +8,7 @@
     <div class="form__group">
       <mat-form-field>
         <input
+          (keydown.space)="$event.preventDefault()"
           formControlName="name"
           matInput
           type="text"
@@ -22,6 +23,7 @@
     <div class="form__group">
       <mat-form-field>
         <input
+          (keydown.space)="$event.preventDefault()"
           formControlName="weight"
           matInput
           type="number"

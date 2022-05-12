@@ -1,7 +1,13 @@
 <form (ngSubmit)="submit()" [formGroup]="form" class="form">
   <h2>Logowanie</h2>
   <mat-form-field>
-    <input formControlName="email" matInput type="email" placeholder="Mail" />
+    <input
+      (keydown.space)="$event.preventDefault()"
+      formControlName="email"
+      matInput
+      type="email"
+      placeholder="Mail"
+    />
     <mat-error *ngIf="email.hasError('required')"
       >Pole jest wymagane.</mat-error
     >
