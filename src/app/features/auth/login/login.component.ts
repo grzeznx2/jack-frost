@@ -40,6 +40,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   submit() {
+    if (this.form.invalid) return;
     this.store.dispatch(
       AuthActions.LOGIN_USER({
         user: {

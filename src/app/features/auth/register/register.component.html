@@ -59,7 +59,15 @@
       >
     </mat-form-field>
   </div>
-  <button mat-raised-button color="accent" [disabled]="form.invalid">
-    {{ (loading$ | async) === true ? "Ładowanie..." : "Zarejestruj" }}
+  <button
+    *ngIf="!(loading$ | async); else mockButton"
+    mat-raised-button
+    color="accent"
+    [disabled]="form.invalid"
+  >
+    Zarejestruj
   </button>
+  <ng-template #mockButton>
+    <app-mock-button> Rejestracja... </app-mock-button>
+  </ng-template>
 </form>

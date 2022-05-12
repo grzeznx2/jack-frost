@@ -21,9 +21,17 @@
               >Nowe Zamówienie</a
             >
           </ng-container>
-          <button mat-raised-button color="basic" (click)="logout()">
-            {{ (loading$ | async) === true ? "Papa..." : "Wyloguj" }}
+          <button
+            *ngIf="!(loading$ | async); else mockButton"
+            mat-raised-button
+            color="basic"
+            (click)="logout()"
+          >
+            Wyloguj
           </button>
+          <ng-template #mockButton>
+            <app-mock-button> Papa... </app-mock-button>
+          </ng-template>
         </nav>
       </div>
     </ng-container>
