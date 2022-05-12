@@ -48,7 +48,7 @@ const routes: Routes = [
   {
     path: 'flavors-units',
     canActivate: [RoleGuard],
-    data: { requiredRole: 'USER' },
+    data: { requiredRole: 'ADMIN' },
     component: FlavorsUnitsComponent,
   },
   {
