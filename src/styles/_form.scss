@@ -6,12 +6,18 @@
   &__group {
     display: flex;
     justify-content: center;
-    margin: 0.5rem 1rem;
+    margin: 0.5rem 1.5rem;
   }
 
   &__group-container {
     &--inline {
       display: flex;
     }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .form__group-container--inline {
+    flex-direction: column;
   }
 }
