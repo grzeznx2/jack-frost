@@ -29,6 +29,6 @@ export class FlavorCreatorComponent {
     this.store.dispatch(
       FlavorActions.ADD_FLAVOR({ flavor: { name: this.type.value } })
     );
-    console.log(this.type.value);
+    this.type.value;
   }
 }

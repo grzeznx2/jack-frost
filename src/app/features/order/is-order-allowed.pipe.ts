@@ -7,7 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class IsOrderAllowedPipe implements PipeTransform {
   transform(date?: Date | { seconds: number; nanoseconds: number }) {
     if (!date) return true;
-    console.log('HELLO PIPE');
     if (date instanceof Date) {
       return this.isToday(date);
     }

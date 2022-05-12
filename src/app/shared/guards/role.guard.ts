@@ -20,7 +20,6 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.store.select(selectUserRole).pipe(
       map((role) => {
-        console.log(role);
         // if (!role) return this.router.createUrlTree(['/login']);
         if (!role) {
           this.router.navigateByUrl('/login');
@@ -36,9 +35,7 @@ export class RoleGuard implements CanActivate {
   }
 
   private requireAdmin(role: Role) {
-    console.log('HELLO 1!');
     if (role === 'ADMIN') return true;
-    console.log('HELLO 2!');
     this.router.navigateByUrl('/order-creator');
     return false;
   }

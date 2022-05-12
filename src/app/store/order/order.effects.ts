@@ -78,12 +78,6 @@ export class OrderEffects {
       pluck('userId'),
       switchMap((userId) =>
         this.orderService.getOrderById(userId).pipe(
-          tap(() => {
-            console.log('TRYING HARD...');
-          }),
-          tap(() => {
-            console.log('TRYING HARD...');
-          }),
           takeUntil(this.orderService.unsubscribe$),
           map((order) => {
             if (order) {
