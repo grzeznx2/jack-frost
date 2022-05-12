@@ -23,7 +23,15 @@
       >Hasło musi zawierać min. 6 znaków</mat-error
     >
   </mat-form-field>
-  <button mat-raised-button color="accent" [disabled]="form.invalid">
-    {{ (loading$ | async) === true ? "Ładowanie..." : "Zaloguj" }}
+  <button
+    *ngIf="!(loading$ | async); else mockButton"
+    mat-raised-button
+    color="accent"
+    [disabled]="form.invalid"
+  >
+    Zaloguj
   </button>
+  <ng-template #mockButton>
+    <app-mock-button> Logowanie... </app-mock-button>
+  </ng-template>
 </form>

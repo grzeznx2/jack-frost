@@ -48,6 +48,7 @@ export class RegisterComponent {
   constructor(private store: Store<AppState>) {}
 
   submit() {
+    if (this.form.invalid) return;
     this.store.dispatch(
       AuthActions.REGISTER_USER({
         user: {
