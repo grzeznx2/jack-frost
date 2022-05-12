@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  OnInit,
   Output,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -9,12 +10,12 @@ import { AppState } from 'src/app/store/app.state';
 import { AuthActions, selectAuthLoading, selectUser } from 'src/app/store/auth';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: 'app-sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class SidenavComponent {
   @Output() sidenavToggled = new EventEmitter<void>();
 
   user$ = this.store.select(selectUser);

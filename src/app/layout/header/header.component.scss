@@ -1,6 +1,7 @@
 .header {
   &__container {
     display: flex;
+    align-items: center;
   }
 
   &__welcome {
@@ -25,5 +26,25 @@
     text-decoration: none;
     cursor: pointer;
     color: white;
+  }
+
+  &__menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .header {
+    &__nav {
+      display: none;
+    }
+    &__nav-container {
+      display: none;
+    }
+
+    &__menu {
+      display: block;
+      margin: 0 0 0 auto;
+    }
   }
 }
