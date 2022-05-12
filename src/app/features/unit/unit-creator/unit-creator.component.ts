@@ -13,7 +13,11 @@ import { selectUnitsLoading, UnitActions } from 'src/app/store/unit';
 export class UnitCreatorComponent {
   public loading$ = this.store.select(selectUnitsLoading);
   public form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
+    ]),
     weight: new FormControl(0.1, [
       Validators.required,
       Validators.min(0.1),

@@ -17,18 +17,22 @@ export class RegisterComponent {
     firstName: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
+      Validators.maxLength(50),
     ]),
     lastName: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
+      Validators.maxLength(50),
     ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
+      Validators.maxLength(50),
     ]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
+      Validators.maxLength(50),
     ]),
   });
 

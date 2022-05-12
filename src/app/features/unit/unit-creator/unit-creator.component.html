@@ -18,6 +18,10 @@
           >Nazwa musi zawierać min. 3 znaki.</mat-error
         >
         <mat-error *ngIf="name.hasError('required')">Pole wymagane.</mat-error>
+
+        <mat-error *ngIf="name.hasError('maxlength')"
+          >Max. 50 znaków.</mat-error
+        >
       </mat-form-field>
     </div>
     <div class="form__group">

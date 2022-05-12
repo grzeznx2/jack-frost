@@ -15,7 +15,11 @@ export class FlavorCreatorComponent {
   public submitAllowed = true;
 
   public form = new FormGroup({
-    type: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    type: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
+    ]),
   });
 
   get type() {
