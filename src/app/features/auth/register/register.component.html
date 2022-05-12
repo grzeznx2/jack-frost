@@ -38,7 +38,7 @@
       <mat-error *ngIf="email.hasError('required')"
         >Pole jest wymagane.</mat-error
       >
-      <mat-error *ngIf="email.hasError('email')"
+      <mat-error *ngIf="email.hasError('pattern')"
         >Proszę podać prawidłowy format maila.</mat-error
       >
     </mat-form-field>

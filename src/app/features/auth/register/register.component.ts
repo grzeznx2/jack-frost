@@ -26,7 +26,10 @@ export class RegisterComponent {
       Validators.required,
       Validators.minLength(6),
     ]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
+    ]),
   });
 
   get firstName() {
