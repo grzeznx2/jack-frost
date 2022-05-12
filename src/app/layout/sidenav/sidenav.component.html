@@ -1,0 +1,43 @@
+<div class="sidenav" (click)="toggleSidenav()">
+  <ng-container *ngIf="user$ | async as user; else logoutNav">
+    <div class="sidenav__nav-container">
+      <nav class="sidenav__nav">
+        <div *ngIf="user.role === 'ADMIN'" class="sidenav__links">
+          <a class="sidenav__link" routerLink="users">Klienci</a>
+          <a class="sidenav__link" routerLink="orders">Zamówienia</a>
+          <a class="sidenav__link" routerLink="flavors-units"
+            >Smaki i jednostki</a
+          >
+        </div>
+        <ng-container *ngIf="user.role === 'USER'">
+          <a class="sidenav__link" routerLink="order-creator"
+            >Nowe Zamówienie</a
+          >
+        </ng-container>
+        <button
+          mat-raised-button
+          color="basic"
+          (click)="logout()"
+          class="sidenav__logout"
+        >
+          {{ (loading$ | async) === true ? "Papa..." : "Wyloguj" }}
+        </button>
+      </nav>
+    </div>
+  </ng-container>
+  <ng-template #logoutNav>
+    <nav class="sidenav__links">
+      <a class="sidenav__link" routerLink="login">Logowanie</a>
+      <a class="sidenav__link" routerLink="register">Rejestracja</a>
+    </nav>
+    <button
+      mat-raised-button
+      color="basic"
+      (click)="logout()"
+      class="sidenav__logout"
+      *ngIf="user$ | async"
+    >
+      {{ (loading$ | async) === true ? "Papa..." : "Wyloguj" }}
+    </button>
+  </ng-template>
+</div>

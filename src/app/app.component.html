@@ -1,4 +1,8 @@
-<app-header></app-header>
+<app-sidenav
+  *ngIf="sidenavOpen"
+  (sidenavToggled)="toggleSidenav()"
+></app-sidenav>
+<app-header (sidenavToggled)="toggleSidenav()"></app-header>
 <app-main>
   <router-outlet></router-outlet>
 </app-main>

@@ -10,11 +10,16 @@ import { StorageActions } from './store/storage';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
+  public sidenavOpen = false;
   title = 'jack-frost';
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(StorageActions.REHYDRATE());
+  }
+
+  public toggleSidenav() {
+    this.sidenavOpen = !this.sidenavOpen;
   }
 }

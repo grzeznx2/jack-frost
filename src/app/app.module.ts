@@ -43,6 +43,7 @@ import { UnitEffects, unitReducer } from './store/unit';
 import { userReducer } from './store/user';
 import { UserEffects } from './store/user/user.effects';
 import { MockButtonComponent } from './shared/mock-button/mock-button.component';
+import { SidenavComponent } from './layout/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { MockButtonComponent } from './shared/mock-button/mock-button.component'
     MainComponent,
     FooterComponent,
     MockButtonComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
