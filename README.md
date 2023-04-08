@@ -1,27 +1,46 @@
 # JackFrost
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
+## An application designed to simulate the ice cream parlor management process.
 
-## Development server
+### Admin:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. can add flavors
+2. can add containers
+3. can add customers
+4. can mark orders as completed
+5. can view orders broken down by customers
+6. can view orders in summary
 
-## Code scaffolding
+### Customer:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. can place an order once a day
+2. can place an order that is an exact copy of a previous order
+3. can add flavors to favorites
 
-## Build
+## Used technologies:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Angular
+2. TypeScript
+3. RxJs
+4. SCSS
+5. Angular Material
+6. Firebase
 
-## Running unit tests
+## Deployed at:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+https://glittery-piroshki-e72cc2.netlify.app/
 
-## Running end-to-end tests
+## Admin credentials:
+email: sdf@wp.pl
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+password: sdfsdf
 
-## Further help
+## Users credentials:
+email: adam@wp.pl
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+password: 123123
+
+email: tomasz@wp.pl
+
+password: 123123
+
